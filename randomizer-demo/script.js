@@ -2,6 +2,19 @@ const collection = document.getElementsByClassName("place");
 const positions = [0,0,0,0];
 var filter = document.getElementById("filter");
 
+
+function getOmkTimelinerDatabase(jsonFile){
+	d3.json(jsonFile).then((data) => {
+		let placeLayers = data.layers.filter(l=>l.class["o:label"]=="Lieu");
+		console.log(placeLayers);
+	});  
+}
+
+function SetRandomTimelineOmk(){
+
+}
+
+
 function SetRandomTimeline(){
 	var positionX = 200;
 
