@@ -6,6 +6,7 @@
     <title>A Dream</title>
 
     <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 
 </head>
 <body onload="SetRandomTimeline(), PlayTimeline()">
@@ -22,6 +23,11 @@
 	<canvas id="filter"></canvas>
 
 	<button type="button" onclick="SetRandomTimeline(),  PlayTimeline()">Clic to randomize</button>
+
+	<button type="button" onclick="getOmkTimelinerDatabase('ADreamBedroom.json')">Load json 1</button>
+	<button type="button" onclick="getOmkTimelinerDatabase('ADreamRollerCoaster.json')">Load RollerCoaster</button>
+
+	
 
 </body>
 <script src="script.js"></script> 
