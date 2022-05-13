@@ -35,3 +35,5 @@ function RandomGeneration(id){
     }
 
 }
+
+export {RandomGeneration};

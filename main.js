@@ -1,23 +1,11 @@
 "use strict";
 
-var pages = document.getElementsByClassName("page");
+import { RandomGeneration } from "./generation.js";
+
 var Om_data;
 var places;
-var relatedAgents = [];
-// Place layers from omeka database
-// var Om_placeLayers = d3.json("A-Dream-Whole.json").then((data) => {
-//     return data.layers.filter(layers=>layers.class["o:label"]=="Lieu");
-// });
-// // Seven randomly selected places
-// var places = Om_placeLayers.then((om_data) => {
-//     return om_data.sort(()=> 0.5 - Math.random()).slice(0,7);
-// });
-// var agents = places.then((p)=>{
-//     let result;
-//     for(let i = 0; i < p.length; i++) {
-        
-//     }
-// });
+var relations = [];
+var storyMedia = [];
 
 window.onload = () => {
     // console.log(pages);
@@ -29,7 +17,8 @@ function init() {
     d3.json("A-Dream-Whole.json").then((data) => {
         Om_data = data;
         places = getSevenRandomPlaces();
-        relatedAgents = getRelatedAgentsFromPlaces();
+        getRelationsFromPlaces();
+        getStoryMedia();
     });
 
     // Hide all content except title
@@ -37,19 +26,6 @@ function init() {
     // Get contents (related items) of locations
 
     // Draw all location content, but set them all to hidden, except for the title
-}
-
-function getRelatedAgentsFromPlaces() {
-    console.log(places);
-    if(places) {
-        places.forEach(p => {
-            // We are only concerned with agents for the purposes
-            // of our story
-            if(p.values[0]['genstory:hasActant']) {
-                relatedAgents.push(p.values[0]['genstory:hasActant']);
-            }
-        });
-    }
 }
 
 function getSevenRandomPlaces() {
@@ -60,5 +36,29 @@ function getSevenRandomPlaces() {
     else {
         console.log("Om_data is null");
     }
+}
+
+function getRelationsFromPlaces() {
+    if(places) {
+        places.forEach(p => {
+            // We are only concerned with agents for the purposes
+            // of our story
+            if(p.values[0]['genstory:hasActant']) {
+                relations.push(p.values[0]['genstory:hasActant']);
+            }
+        });
+    }
+}
+
+function getStoryMedia() {
+    relations.forEach(r => {
+        r.forEach( item => {
+            // Index 0 = largest thumbnail option; may choose to randomize
+            // thumbnail sizes later
+            if(item.thumbnail_display_urls.large) {
+                storyMedia.push(item.thumbnail_display_urls.large);
+            }
+        });
+    });
 }
 
