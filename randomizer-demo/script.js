@@ -1,22 +1,55 @@
 const collection = document.getElementsByClassName("place");
 const positions = [0,0,0,0];
-var filter = document.getElementById("filter");
+var filter = document.getElementById("filter"), placeLayers;
+var props = ['genstory:hasAffect','genstory:hasActant','genstory:hasEvenement','genstory:hasLieu','genstory:hasObject'];
+var positionX = 200;
 
 
 function getOmkTimelinerDatabase(jsonFile){
 	d3.json(jsonFile).then((data) => {
-		let placeLayers = data.layers.filter(l=>l.class["o:label"]=="Lieu");
+		placeLayers = data.layers.filter(l=>l.class["o:label"]=="Lieu");
 		console.log(placeLayers);
+		SetRandomTimelineOmk();
 	});  
 }
 
 function SetRandomTimelineOmk(){
+	//get random layer
+	let idRA = d3.randomInt(placeLayers.length-1)();	
+	let rndLayer = placeLayers[idRA];
+	//get relations of the layer to story element
+	let layerRelations = [rndLayer.source];
+	rndLayer.values.forEach(v => {
+		props.forEach(p=>{
+			if(v[p]){
+				v[p].forEach(r=>layerRelations.push(r));
+			}
+		});
+	});
+	//remove element
+	//create html element directly from data
+	let timeline = d3.select('#timelineOmk')
+	.selectAll("div")
+	.data(layerRelations)
+	.join(
+	  enter => enter.append("div")
+		  .attr("class",(d,i) => {
+			let c =  "place"+i+' place';
+			return c
+		  })
+		  .style('top',(d,i)=> (50*i)+"px")
+		  .style('left',(d,i)=> (positionX*i)+"px")
+		  .text(d=>d['o:title']),
+	  update => update.text(d=>d['o:title']),
+	  exit => exit.remove()
+	)
 
+	//get relations with this place
+	console.log(rndLayer);
 }
 
 
 function SetRandomTimeline(){
-	var positionX = 200;
 
 	const order = [0,1,2,3];
 	order.sort(function(a, b){return 0.5 - Math.random()});

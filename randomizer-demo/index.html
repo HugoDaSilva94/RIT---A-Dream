@@ -9,14 +9,19 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
 </head>
-<body onload="SetRandomTimeline(), PlayTimeline()">
-
+<body onload="getOmkTimelinerDatabase('ADreamRollerCoaster.json')">
+	<!--
 	<section id="timeline">
 		<div class="place1 place"><p>Place number 1</p></div>
 		<div class="place2 place"><p>Place number 2</p></div>
 		<div class="place3 place"><p>Place number 3</p></div>
 		<div class="place4 place"><p>Place number 4</p></div>
 	</section>
+	-->
+
+	<section id="timelineOmk">
+	</section>
+
 
 	<div id="cursor"></div>
 
@@ -26,6 +31,7 @@
 
 	<button type="button" onclick="getOmkTimelinerDatabase('ADreamBedroom.json')">Load json 1</button>
 	<button type="button" onclick="getOmkTimelinerDatabase('ADreamRollerCoaster.json')">Load RollerCoaster</button>
+	<button type="button" onclick="SetRandomTimelineOmk()">See Random Place</button>
 
 	
 
