@@ -3,10 +3,14 @@
 //The list of actual medias that are on screen
 const collage = []
 //FUNCTION TO RANDOMLY GENERATE IMAGES AND DELETE THE OLD ONE
-function RandomGeneration(id){
+function RandomGeneration(imgLink){
+    
+    //const para = document.getElementById(id);
+    let imgElement = document.createElement('img');
+    imgElement.src = imgLink;
 
-    const para = document.getElementById(id);
-    if(!collage.length)collage.push(para);
+    // document.getElementsByTagName
+    if(!collage.length)collage.push(imgLink);
 
     //CREATE A CLONE OF THE EXEMPLE IMAGE
     const clone = para.cloneNode(true);
