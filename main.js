@@ -85,6 +85,9 @@ function RandomGeneration(){
     let size = (Math.floor(Math.random()*300));
     imgElement.style.width = size+200+"px";
 
+    //RANDOMIZE OPACITY
+    imgElement.style.opacity = Math.random();
+
     //GENERATE THE IMAGE IN THE PAGE THEN ADD IT TO OUR LIST 
     document.body.appendChild(imgElement);
     collage.push(imgElement);
