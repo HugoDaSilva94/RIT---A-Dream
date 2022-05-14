@@ -7,3 +7,7 @@ html, body{
   background-color: #000000;
   text-align: center;
 }
+
+button {
+  z-index: 100;
+}
