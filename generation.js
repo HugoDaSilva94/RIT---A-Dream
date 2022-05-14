@@ -39,5 +39,3 @@ function RandomGeneration(imgLink){
     }
 
 }
-
-export {RandomGeneration};

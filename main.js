@@ -1,7 +1,5 @@
 "use strict";
 
-import { RandomGeneration } from "./generation.js";
-
 var Om_data;
 var places;
 var relations = [];
@@ -60,5 +58,45 @@ function getStoryMedia() {
             }
         });
     });
+}
+
+//-------------------------------------------------------------------------------------
+//Our image to generate
+//const para = document.getElementById("ourImage");
+//The list of actual medias that are on screen
+const collage = []
+//FUNCTION TO RANDOMLY GENERATE IMAGES AND DELETE THE OLD ONE
+function RandomGeneration(){
+    // Create an image element in HTML using first image
+    // in storyMedia array
+    let imgElement = document.createElement('img');
+    imgElement.src = storyMedia.shift();
+
+    // //CREATE A CLONE OF THE EXEMPLE IMAGE
+    // const clone = para.cloneNode(true);
+
+    //DEFINE RANDOM POSITIONS AND APPLY THEM
+    let randomX = Math.floor(Math.random() * (window.innerWidth-400));
+    let randomY = Math.floor(Math.random() * (window.innerHeight-400));
+    imgElement.style.top = (randomY+100)+"px";
+    imgElement.style.left = (randomX+100)+"px";
+
+    //DEFINE THE SIZE OF THE MEDIA
+    let size = (Math.floor(Math.random()*300));
+    imgElement.style.width = size+200+"px";
+
+    //GENERATE THE IMAGE IN THE PAGE THEN ADD IT TO OUR LIST 
+    document.body.appendChild(imgElement);
+    collage.push(imgElement);
+    //collage.classList.add("fade-in");
+    
+    console.log(collage);
+
+    //IF THE LIST IS FULL, DELETE THE OLDEST IMAGE
+    if(collage.length > 10){
+        collage[0].remove();
+        collage.shift()
+    }
+
 }
 
