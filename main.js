@@ -17,6 +17,7 @@ function init() {
         places = getSevenRandomPlaces();
         getRelationsFromPlaces();
         getStoryMedia();
+        console.log(places);
     });
 
     // Hide all content except title
@@ -72,34 +73,54 @@ function RandomGeneration(){
     let imgElement = document.createElement('img');
     imgElement.src = storyMedia.shift();
 
-    // //CREATE A CLONE OF THE EXEMPLE IMAGE
-    // const clone = para.cloneNode(true);
-
     //DEFINE RANDOM POSITIONS AND APPLY THEM
-    let randomX = Math.floor(Math.random() * (window.innerWidth-400));
-    let randomY = Math.floor(Math.random() * (window.innerHeight-400));
-    imgElement.style.top = (randomY+100)+"px";
-    imgElement.style.left = (randomX+100)+"px";
+    let randomX = Math.floor(Math.random() * (window.innerWidth-800));
+    let randomY = Math.floor(Math.random() * (window.innerHeight-800));
+    imgElement.style.top = (randomY+200)+"px";
+    imgElement.style.left = (randomX+200)+"px";
 
     //DEFINE THE SIZE OF THE MEDIA
-    let size = (Math.floor(Math.random()*300));
+    let size = (Math.floor(Math.random()*150));
     imgElement.style.width = size+200+"px";
 
     //RANDOMIZE OPACITY
-    imgElement.style.opacity = Math.random();
+    imgElement.style.opacity = 0;
+    let randomOpacity = Math.floor(Math.random()) + 0.5;;
+
+    //ANIMATION TRANSITION
+    anime({
+        targets: imgElement,
+        opacity : randomOpacity,
+        duration : 3000,
+    });
 
     //GENERATE THE IMAGE IN THE PAGE THEN ADD IT TO OUR LIST 
     document.body.appendChild(imgElement);
     collage.push(imgElement);
-    //collage.classList.add("fade-in");
-    
-    console.log(collage);
 
-    //IF THE LIST IS FULL, DELETE THE OLDEST IMAGE
+    //IF THE LIST IS OVER 10, DELETE THE OLDEST IMAGE
     if(collage.length > 10){
-        collage[0].remove();
-        collage.shift()
+        CollageDelete(collage[0]);
+        collage.shift();
     }
-
 }
 
+//DELETE THE OLDEST IMAGE ON SCREEN IN A FADE OUT
+function CollageDelete(elem){
+    anime({
+        targets: elem,
+        opacity: 0,
+        duration: 2000,
+        complete: function(anim) {
+            elem.remove();
+        }
+    });
+}
+
+function SetBackgroundColor(){
+    anime({
+        targets: document.body,
+        backgroundColor: 'rgb('+(Math.floor(Math.random()*255)).toString()+','+(Math.floor(Math.random()*255)).toString()+','+(Math.floor(Math.random()*255)).toString()+')',
+        duration: 4000
+    });
+}
